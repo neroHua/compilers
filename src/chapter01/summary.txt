@@ -1,0 +1,28 @@
+1.研究编译器主要是研究如何设计一个数学模型和选择合适的算法，并且在普遍适用和简单和效率方面做平衡处理，换言之设计一种好的语言，推动计算机硬件。
+
+2.一个编译器的作用是将一种语言的源程序的翻译成另一种等价语言的目标程序，通常目标程序为汇编语言程序或者是二进制语言程序。
+
+3.一个大型的编译过程为：preprocessor-->compiler-->assembler-->Linker/loader
+  3.1.preprocessor:将源程序修改成易于被compiler编译的源程序
+  3.2.compiler将上一步结果编译成可装配的目标程序
+  3.3.assmbler将上一步结果装配成浮动的目标程序
+  3.4.linker/loader将上一步结果链接成目标程序
+
+4.一个小型的编译过程为：lexical analyzer-->syntax analyzer-->semantic analyzer-->intermediate code generator
+  -->machine independent code optimizer-->code generator-->machine-dependent code optimizer
+  4.1.lexical analyzer 把源代码从 character stream 转成 token stream 并生成 symbol table
+  4.2.syntax analyzer 把 token stream 转成 syntax tree
+  4.3.semantic analyzer 把 syntax tree 进一步解析
+  4.4.intermediate code generator 根据syntax tree 生成中间代码
+  4.5.machine independent code optimizer 优化中间代码
+  4.6.code generator 生成目标代码
+  4.7.achine-dependent code optimizer 优化目标代码
+  
+5.生成目标代码时寄存器的分配与管理占有非常核心的地位
+
+6.编译时name跟location（variables）的关系叫做environment，location（variables）跟values之间的关系叫做state
+
+7.Static/Dynamic Scope and Block Structure 用来确定变量的有效范围
+
+8.call by value/reference 是两种常用调用
+  
