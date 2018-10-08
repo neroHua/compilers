@@ -1,11 +1,12 @@
 package chapter02;
 
 /**
- * 
+ * 此类用于将
  * 简单的中缀算术运算符表达式转换成对应的前缀和后缀算术运算表达式
  * 简单的算术表达式应该只包含+，-,0,1,2,3,4,5,6,7,8,9这些字符
- * 我们可以从下面的四个转换方式中可以看到
- * 转换的最终结果跟语法和转换的方法是有关系的
+ * 
+ * 可以从下面的四个转换方式中可以看到
+ * 转换的最终结果受语法和转换的方法影响
  * 
  * @author neroHua
  * @time 2018年9月19日09:02:34
@@ -16,32 +17,32 @@ public class SimpleParser {
 	/**
 	 * productions:
 	 * 	expression---->	digit |
-	 * 					expression + digit |
-	 * 					expression - digit
+	 * 			expression + digit |
+	 * 			expression - digit
 	 * 	digit---->	0 |
-	 * 				1 |
-	 * 				2 |
-	 * 				3 |
-	 * 				4 |
-	 * 				5 |
-	 * 				6 |
-	 * 				7 |
-	 * 				8 |
-	 * 				9
+	 * 			1 |
+	 * 			2 |
+	 * 			3 |
+	 * 			4 |
+	 * 			5 |
+	 * 			6 |
+	 * 			7 |
+	 * 			8 |
+	 * 			9
 	 * 
 	 * translate schemes:
 	 * 	expression---->	expression + digit {'expression digit +'} |
-	 * 					expression - digit {'expression digit -'}
+	 * 			expression - digit {'expression digit -'}
 	 * 	digit---->	0 {'0'} |
-	 * 				1 {'1'} |
-	 * 				2 {'2'} |
-	 * 				3 {'3'} |
-	 * 				4 {'4'} |
-	 * 				5 {'5'} |
-	 * 				6 {'6'} |
-	 * 				7 {'7'} |
-	 * 				8 {'8'} |
-	 * 				9 {'9'}
+	 * 			1 {'1'} |
+	 * 			2 {'2'} |
+	 * 			3 {'3'} |
+	 * 			4 {'4'} |
+	 * 			5 {'5'} |
+	 * 			6 {'6'} |
+	 * 			7 {'7'} |
+	 * 			8 {'8'} |
+	 * 			9 {'9'}
 	 * 
 	 * @param expression
 	 * @return
@@ -120,32 +121,32 @@ public class SimpleParser {
 	/**
 	 * productions:
 	 * 	expression---->	digit |
-	 * 					digit + expression |
-	 * 					digit - expression
+	 * 			digit + expression |
+	 * 			digit - expression
 	 * 	digit---->	0 |
-	 * 				1 |
-	 * 				2 |
-	 * 				3 |
-	 * 				4 |
-	 * 				5 |
-	 * 				6 |
-	 * 				7 |
-	 * 				8 |
-	 * 				9
+	 * 			1 |
+	 * 			2 |
+	 * 			3 |
+	 * 			4 |
+	 * 			5 |
+	 * 			6 |
+	 * 			7 |
+	 * 			8 |
+	 * 			9
 	 * 
 	 * translate schemes:
 	 * 	expression---->	digit + expression {'+ digit expression'} |
-	 * 					digit - expression {'- digit expression'}
+	 * 			digit - expression {'- digit expression'}
 	 * 	digit---->	0 {'0'} |
-	 * 				1 {'1'} |
-	 * 				2 {'2'} |
-	 * 				3 {'3'} |
-	 * 				4 {'4'} |
-	 * 				5 {'5'} |
-	 * 				6 {'6'} |
-	 * 				7 {'7'} |
-	 * 				8 {'8'} |
-	 * 				9 {'9'}
+	 * 			1 {'1'} |
+	 * 			2 {'2'} |
+	 * 			3 {'3'} |
+	 * 			4 {'4'} |
+	 * 			5 {'5'} |
+	 * 			6 {'6'} |
+	 * 			7 {'7'} |
+	 * 			8 {'8'} |
+	 * 			9 {'9'}
 	 * 
 	 * @param expression
 	 * @return
@@ -221,32 +222,32 @@ public class SimpleParser {
 	/**
 	 * productions:
 	 * 	expression---->	digit |
-	 * 					digit + expression |
-	 * 					digit - expression
+	 * 			digit + expression |
+	 * 			digit - expression
 	 * 	digit---->	0 |
-	 * 				1 |
-	 * 				2 |
-	 * 				3 |
-	 * 				4 |
-	 * 				5 |
-	 * 				6 |
-	 * 				7 |
-	 * 				8 |
-	 * 				9
+	 * 			1 |
+	 * 			2 |
+	 * 			3 |
+	 * 			4 |
+	 * 			5 |
+	 * 			6 |
+	 * 			7 |
+	 * 			8 |
+	 * 			9
 	 * 
 	 * translate schemes:
 	 * 	expression---->	digit + expression {'digit expression +'} |
-	 * 					digit - expression {'digit expression -'}
+	 * 			digit - expression {'digit expression -'}
 	 * 	digit---->	0 {'0'} |
-	 * 				1 {'1'} |
-	 * 				2 {'2'} |
-	 * 				3 {'3'} |
-	 * 				4 {'4'} |
-	 * 				5 {'5'} |
-	 * 				6 {'6'} |
-	 * 				7 {'7'} |
-	 * 				8 {'8'} |
-	 * 				9 {'9'}
+	 * 			1 {'1'} |
+	 * 			2 {'2'} |
+	 * 			3 {'3'} |
+	 * 			4 {'4'} |
+	 * 			5 {'5'} |
+	 * 			6 {'6'} |
+	 * 			7 {'7'} |
+	 * 			8 {'8'} |
+	 * 			9 {'9'}
 	 * 
 	 * @param expression
 	 * @return
@@ -322,32 +323,32 @@ public class SimpleParser {
 	/**
 	 * productions:
 	 * 	expression---->	digit |
-	 * 					expression + digit |
-	 * 					expression - digit
+	 * 			expression + digit |
+	 * 			expression - digit
 	 * 	digit---->	0 |
-	 * 				1 |
-	 * 				2 |
-	 * 				3 |
-	 * 				4 |
-	 * 				5 |
-	 * 				6 |
-	 * 				7 |
-	 * 				8 |
-	 * 				9
+	 * 			1 |
+	 * 			2 |
+	 * 			3 |
+	 * 			4 |
+	 * 			5 |
+	 * 			6 |
+	 * 			7 |
+	 * 			8 |
+	 * 			9
 	 * 
 	 * translate schemes:
 	 * 	expression---->	expression + digit {'+ expression digit'} |
-	 * 					expression - digit {'- expression digit'}
+	 * 			expression - digit {'- expression digit'}
 	 * 	digit---->	0 {'0'} |
-	 * 				1 {'1'} |
-	 * 				2 {'2'} |
-	 * 				3 {'3'} |
-	 * 				4 {'4'} |
-	 * 				5 {'5'} |
-	 * 				6 {'6'} |
-	 * 				7 {'7'} |
-	 * 				8 {'8'} |
-	 * 				9 {'9'}
+	 * 			1 {'1'} |
+	 * 			2 {'2'} |
+	 * 			3 {'3'} |
+	 * 			4 {'4'} |
+	 * 			5 {'5'} |
+	 * 			6 {'6'} |
+	 * 			7 {'7'} |
+	 * 			8 {'8'} |
+	 * 			9 {'9'}
 	 * 
 	 * @param expression
 	 * @return
