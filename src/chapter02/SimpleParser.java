@@ -48,11 +48,7 @@ public class SimpleParser {
 	 * @return
 	 */
 	public char[] postFixScanFromRightToLeft(char[] inFixExpression) {
-		char[] postExpression = null;
-
-		postExpression = subPostFixScanFromRightToLeft(inFixExpression, inFixExpression.length - 1);
-
-		return postExpression;
+		return subPostFixScanFromRightToLeft(inFixExpression, inFixExpression.length - 1);
 	}
 
 	private char[] subPostFixScanFromRightToLeft(char[] inFixExpression, int currentCharIndex) {
@@ -354,11 +350,7 @@ public class SimpleParser {
 	 * @return
 	 */
 	public char[] preFixScanFromRightToLeft(char[] inFixExpression) {
-		char[] postExpression = null;
-
-		postExpression = subPreFixScanFromRightToLeft(inFixExpression, inFixExpression.length - 1);
-
-		return postExpression;
+		return subPreFixScanFromRightToLeft(inFixExpression, inFixExpression.length - 1);
 	}
 
 	private char[] subPreFixScanFromRightToLeft(char[] inFixExpression, int currentCharIndex) {

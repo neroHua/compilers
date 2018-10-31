@@ -211,12 +211,212 @@ public class SimpleParserWithParenthese {
 		return returnChar;
 	}
 	
+	/**
+     * productions:
+     *  expression: digit |
+     *              expression + digit |
+     *              expression - digit |
+     *              term |
+     *              expression + term |
+     *              expression - term
+     *              
+     *  term:       (digit) |
+     *              (expression)
+     *              
+     *  digit:      0 |
+     *              1 |
+     *              2 |
+     *              3 |
+     *              4 |
+     *              5 |
+     *              6 |
+     *              7 |
+     *              8 |
+     *              9
+     * 
+     * translate schemes:
+     *  expression: digit {'+ expression digit'} |
+     *              expression + digit {'+ expression digit'} |
+     *              expression - digit {'- expression digit'} |
+     *              term {'term'} |
+     *              expression + term {'+ expression term'} |
+     *              expression - term {'- expression term'}
+     *              
+     *  term:       (digit) {'digit'} |
+     *              (expression) {'expression'}
+     *              
+     *  digit:      0 {'0'} |
+     *              1 {'1'} |
+     *              2 {'2'} |
+     *              3 {'3'} |
+     *              4 {'4'} |
+     *              5 {'5'} |
+     *              6 {'6'} |
+     *              7 {'7'} |
+     *              8 {'8'} |
+     *              9 {'9'}
+     * 
+     * @param expression
+     * @return
+     */
+    public char[] preFixScanFromRightToLeft(char[] inFixExpression) {
+        char[] preExpression = null;
+
+        preExpression = subPreFixScanFromRightToLeft(inFixExpression, inFixExpression.length - 1, 0, inFixExpression.length - 1);
+
+        return preExpression;
+    }
+
+    private char[] subPreFixScanFromRightToLeft(char[] inFixExpression, int currentCharIndex,  int startCharIndex, int endCharIndex) {
+        if(currentCharIndex < 0) {
+            return null;
+        }
+        
+        int[] matchExpressionMessage = matchExpression02(inFixExpression, currentCharIndex, startCharIndex, endCharIndex);
+        switch (matchExpressionMessage[0]) {
+            case 1:
+                char[] returnChar = new char[1];
+                returnChar[0] = inFixExpression[currentCharIndex];
+                return returnChar;
+            case 2:
+            case 3:
+                char[] part11 = subPreFixScanFromRightToLeft(inFixExpression, currentCharIndex - 2, startCharIndex, endCharIndex - 2);
+                char part12 = inFixExpression[matchExpressionMessage[1]];
+                char part13 = inFixExpression[currentCharIndex];
+                return doMatchExpression0x(part11, part12, part13);
+            case 4:
+                return subPreFixScanFromRightToLeft(inFixExpression, currentCharIndex - 1, startCharIndex + 1, endCharIndex - 1);
+            case 5:
+            case 6:
+                char[] part21 = subPreFixScanFromRightToLeft(inFixExpression, matchExpressionMessage[1] - 1, startCharIndex, matchExpressionMessage[1] - 1);
+                char part22 = inFixExpression[matchExpressionMessage[1]];
+                char[] part23 = subPreFixScanFromRightToLeft(inFixExpression, currentCharIndex - 1, matchExpressionMessage[1] + 2, endCharIndex - 1);
+                return doMatchExpression0x(part21, part22, part23);
+            default:
+                break;
+        }
+        
+        int matchTermType = matchTerm02(inFixExpression, currentCharIndex, startCharIndex, endCharIndex);
+        switch (matchTermType) {
+            case 1:
+                return doMatchDigit02(inFixExpression, currentCharIndex);
+            case 2:
+                return subPreFixScanFromRightToLeft(inFixExpression, currentCharIndex - 1, startCharIndex + 1, endCharIndex - 1);
+            default:
+                break;
+        }
+        
+        if (matchDigit02(inFixExpression, currentCharIndex)) {
+            return doMatchDigit02(inFixExpression, currentCharIndex);
+        }
+
+        throw new RuntimeException("该字符数组不是能被当做简单算术运算字符串处理的数组");
+    }
+
+    private int[] matchExpression02(char[] inFixExpression, int currentCharIndex, int startCharIndex, int endCharIndex) {
+        if(inFixExpression[currentCharIndex] >= '0' && inFixExpression[currentCharIndex] <= '9' && currentCharIndex == startCharIndex) {
+            return packMatchExpression02Message(1, 0);
+        }
+        if(inFixExpression[currentCharIndex] >= '0' && inFixExpression[currentCharIndex] <= '9' && inFixExpression[currentCharIndex - 1] == '+') {
+            return packMatchExpression02Message(2, currentCharIndex - 1);
+        }
+        if(inFixExpression[currentCharIndex] >= '0' && inFixExpression[currentCharIndex] <= '9' && inFixExpression[currentCharIndex - 1] == '-') {
+            return packMatchExpression02Message(3, currentCharIndex - 1);
+        }
+        if(inFixExpression[currentCharIndex] == ')' && startCharIndex <= endCharIndex - 4) {
+            int matchParenthese = 1;
+            for( int i = currentCharIndex - 1; i >= startCharIndex + 2; i--) {
+                if(inFixExpression[i] == ')') {
+                    matchParenthese++;
+                } else if (inFixExpression[i] == '(') {
+                    matchParenthese--;
+                }
+                
+                if(matchParenthese == 0) {
+                    if(i == startCharIndex) {
+                        return packMatchExpression02Message(4, 0);
+                    }
+                    if(inFixExpression[i - 1] == '+') {
+                        return packMatchExpression02Message(5, i - 1);
+                    }
+                    if(inFixExpression[i - 1] == '-') {
+                        return packMatchExpression02Message(6, i - 1);
+                    }
+                }
+            }
+        }
+        return packMatchExpression02Message(0, 0);
+    }
+    
+    private int[] packMatchExpression02Message(int matchExpressionType, int plusOrMinuxIndex) {
+        int[] returnMatchExpressionMessage = new int[2];
+        returnMatchExpressionMessage[0] = matchExpressionType;
+        returnMatchExpressionMessage[1] = plusOrMinuxIndex;
+        return returnMatchExpressionMessage;
+    };
+    
+    private char[] doMatchExpression0x(char[] part1, char part2, char part3) {
+        char[] part = new char[part1.length + 1 + 1];
+
+        part[0] = part2;
+        for (int i = 1, j = 0; j < part1.length; i++, j++) {
+            part[i] = part1[j];
+        }
+        part[part.length - 1] = part3;
+
+        return part;
+    }
+       
+    private char[] doMatchExpression0x(char[] part1, char part2, char[] part3) {
+        char[] part = new char[part1.length + 1 + part3.length];
+        
+        part[0] = part2;
+        for(int i = 1, j = 0; j < part1.length; i++, j++){
+            part[i] = part1[j];
+        }
+        for(int i = part1.length + 1, j = 0; j < part3.length; i++, j++ ) {
+            part[i] = part3[j];
+        }
+        
+        return part;
+    }
+    
+
+    private int matchTerm02(char[] inFixExpression, int currentCharIndex, int startCharIndex, int endCharIndex) {
+        if(inFixExpression[startCharIndex] == '(' && inFixExpression[endCharIndex] == ')') {
+            if(endCharIndex - startCharIndex == 2 && inFixExpression[currentCharIndex] >= '0' && inFixExpression[currentCharIndex] <= '9' ) {
+                return 1;
+            } else {
+                return 2;
+            }
+        }
+        
+        return 0;
+    }
+
+    private boolean matchDigit02(char[] inFixExpression, int currentCharIndex) {
+        if (inFixExpression[currentCharIndex] >= '0' && inFixExpression[currentCharIndex] <= '9') {
+            return true;
+        }
+        return false;
+    }
+    
+    private char[] doMatchDigit02(char[] inFixExpression, int currentCharIndex) {
+        char[] returnChar = new char[1];
+        returnChar[0] = inFixExpression[currentCharIndex];
+        return returnChar;
+    }
+    
 	public static void main(String[] args) {
 		SimpleParserWithParenthese simpleParser = new SimpleParserWithParenthese();
-		char[] inFixExpression = "(9-5)+(2)".toCharArray();
+		char[] inFixExpression = "((9-5)+(2))".toCharArray();
 		
         char[] postFixExpression1 = simpleParser.postFixScanFromRightToLeft(inFixExpression);
         String postFix1 = new String(postFixExpression1);
         System.out.println(postFix1);
+        
+        char[] pretFixExpression1 = simpleParser.preFixScanFromRightToLeft(inFixExpression);
+        String preFix1 = new String(pretFixExpression1);
+        System.out.println(preFix1);
 	}
 }
