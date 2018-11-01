@@ -11,7 +11,7 @@ package chapter02;
  * @time 2018年10月4日22:18:28
  *
  */
-public class SimpleParserWithParenthese {
+public class SimpleParser01 {
 
 	/**
 	 * productions:
@@ -782,7 +782,7 @@ public class SimpleParserWithParenthese {
     }
     
 	public static void main(String[] args) {
-		SimpleParserWithParenthese simpleParser = new SimpleParserWithParenthese();
+		SimpleParser01 simpleParser = new SimpleParser01();
 		char[] inFixExpression = "((9-5)+(2))".toCharArray();
 		
         char[] postFixExpression1 = simpleParser.postFixScanFromRightToLeft(inFixExpression);

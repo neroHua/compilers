@@ -12,7 +12,7 @@ package chapter02;
  * @time 2018年9月19日09:02:34
  *
  */
-public class SimpleParser {
+public class SimpleParser00 {
 
 	/**
 	 * productions:
@@ -417,7 +417,7 @@ public class SimpleParser {
 	}
 	
 	public static void main(String[] args) {
-		SimpleParser simpleParser = new SimpleParser();
+		SimpleParser00 simpleParser = new SimpleParser00();
 		char[] inFixExpression = "9-5+2".toCharArray();
 		
 		char[] postFixExpression1 = simpleParser.postFixScanFromRightToLeft(inFixExpression);
