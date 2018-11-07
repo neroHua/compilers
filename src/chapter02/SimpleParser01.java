@@ -146,10 +146,10 @@ public class SimpleParser01 {
 		return packMatchExpression01Message(0, 0);
 	}
 	
-	private int[] packMatchExpression01Message(int matchExpressionType, int plusOrMinuxIndex) {
+	private int[] packMatchExpression01Message(int matchExpressionType, int addOrSubtractIndex) {
 	    int[] returnMatchExpressionMessage = new int[2];
 	    returnMatchExpressionMessage[0] = matchExpressionType;
-	    returnMatchExpressionMessage[1] = plusOrMinuxIndex;
+	    returnMatchExpressionMessage[1] = addOrSubtractIndex;
 	    return returnMatchExpressionMessage;
 	};
 	
@@ -338,10 +338,10 @@ public class SimpleParser01 {
         return packMatchExpression02Message(0, 0);
     }
     
-    private int[] packMatchExpression02Message(int matchExpressionType, int plusOrMinuxIndex) {
+    private int[] packMatchExpression02Message(int matchExpressionType, int addOrSubtractIndex) {
         int[] returnMatchExpressionMessage = new int[2];
         returnMatchExpressionMessage[0] = matchExpressionType;
-        returnMatchExpressionMessage[1] = plusOrMinuxIndex;
+        returnMatchExpressionMessage[1] = addOrSubtractIndex;
         return returnMatchExpressionMessage;
     };
     
@@ -530,10 +530,10 @@ public class SimpleParser01 {
         return packMatchExpression03Message(0, 0);
     }
     
-    private int[] packMatchExpression03Message(int matchExpressionType, int plusOrMinuxIndex) {
+    private int[] packMatchExpression03Message(int matchExpressionType, int addOrSubtractIndex) {
         int[] returnMatchExpressionMessage = new int[2];
         returnMatchExpressionMessage[0] = matchExpressionType;
-        returnMatchExpressionMessage[1] = plusOrMinuxIndex;
+        returnMatchExpressionMessage[1] = addOrSubtractIndex;
         return returnMatchExpressionMessage;
     };
     
@@ -722,10 +722,10 @@ public class SimpleParser01 {
         return packMatchExpression04Message(0, 0);
     }
     
-    private int[] packMatchExpression04Message(int matchExpressionType, int plusOrMinuxIndex) {
+    private int[] packMatchExpression04Message(int matchExpressionType, int addOrSubtractIndex) {
         int[] returnMatchExpressionMessage = new int[2];
         returnMatchExpressionMessage[0] = matchExpressionType;
-        returnMatchExpressionMessage[1] = plusOrMinuxIndex;
+        returnMatchExpressionMessage[1] = addOrSubtractIndex;
         return returnMatchExpressionMessage;
     };
     
