@@ -140,6 +140,7 @@ public class SimpleParser01 {
                     if(inFixExpression[i - 1] == '-') {
                         return packMatchExpression01Message(6, i - 1);
                     }
+                    break;
 		        }
 		    }
         }
@@ -332,6 +333,7 @@ public class SimpleParser01 {
                     if(inFixExpression[i - 1] == '-') {
                         return packMatchExpression02Message(6, i - 1);
                     }
+                    break;
                 }
             }
         }
@@ -524,6 +526,7 @@ public class SimpleParser01 {
                     if(inFixExpression[i + 1] == '-') {
                         return packMatchExpression03Message(6, i + 1);
                     }
+                    break;
                 }
             }
         }
@@ -716,6 +719,7 @@ public class SimpleParser01 {
                     if(inFixExpression[i + 1] == '-') {
                         return packMatchExpression04Message(6, i + 1);
                     }
+                    break;
                 }
             }
         }
