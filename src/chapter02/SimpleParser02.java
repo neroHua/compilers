@@ -133,14 +133,14 @@ public class SimpleParser02 {
                 char[] part11 = subPostFixScanFromRightToLeft(inFixExpression, currentCharIndex - 2, startCharIndex, endCharIndex - 2);
                 char part12 = inFixExpression[currentCharIndex - 1];
                 char part13 = inFixExpression[currentCharIndex];
-                return doMatchFactory01(part11, part12, part13);
+                return doMatchExpress01(part11, part12, part13);
             case 5:
             case 6:
             case 7:
                 char[] part21 = subPostFixScanFromRightToLeft(inFixExpression, matchExpressionMessage[1] - 1, startCharIndex, matchExpressionMessage[1] - 1);
                 char part22 = inFixExpression[matchExpressionMessage[1]];
                 char[] part23 = subPostFixScanFromRightToLeft(inFixExpression, currentCharIndex, matchExpressionMessage[1] + 1, endCharIndex);
-                return doMatchFactory01(part21, part22, part23);
+                return doMatchExpress01(part21, part22, part23);
             default:
                 break;
             }
@@ -149,69 +149,7 @@ public class SimpleParser02 {
         throw new RuntimeException("该字符数组不是能被当做简单算术运算字符串处理的数组:\tcurrentIndex:" + currentCharIndex + "\tstartIndex:" + startCharIndex + "\tendIndex:" + endCharIndex);
     }
 
-    private int[] matchExpressionMessage01(char[] inFixExpression, int currentCharIndex, int startCharIndex, int endCharIndex) {
-        if (inFixExpression[currentCharIndex] >= '0' && inFixExpression[currentCharIndex] <= '9') {
-            if (startCharIndex == endCharIndex) {
-                return packMatchExpressionMessage01(1, 0);
-            }
 
-            if (inFixExpression[currentCharIndex - 1] == '+') {
-                return packMatchExpressionMessage01(2, currentCharIndex - 1);
-            }
-            if (inFixExpression[currentCharIndex - 1] == '-') {
-                return packMatchExpressionMessage01(3, currentCharIndex - 1);
-            }
-        }
-
-        if (inFixExpression[currentCharIndex] >= ')') {
-            int matchParenthese = 1;
-            for (int i = currentCharIndex - 1; i >= startCharIndex; i--) {
-                if (inFixExpression[i] == '(') {
-                    matchParenthese--;
-                } else if (inFixExpression[i] == ')') {
-                    matchParenthese++;
-                }
-
-                if (matchParenthese == 0) {
-                    if (i == startCharIndex) {
-                        return packMatchFactoryMessage01(4, 0);
-                    }
-                    if (inFixExpression[i - 1] == '+') {
-                        return packMatchFactoryMessage01(5, i - 1);
-                    }
-                    if (inFixExpression[i - 1] == '-') {
-                        return packMatchFactoryMessage01(6, i - 1);
-                    }
-                }
-            }
-        }
-
-        int matchParenthese = 0;
-        int matchExpression = 0;
-        for (int i = currentCharIndex; i >= startCharIndex; i--) {
-            if (inFixExpression[i] == '(') {
-                matchParenthese--;
-            } else if (inFixExpression[i] == ')') {
-                matchParenthese++;
-            } else if (inFixExpression[i] == '+' || inFixExpression[i] == '-') {
-                matchExpression++;
-            }
-
-            if (matchParenthese == 0 && matchExpression > 0) {
-                return packMatchFactoryMessage01(7, i);
-            }
-        }
-
-        return packMatchExpressionMessage01(0, 0);
-    }
-
-    private int[] packMatchExpressionMessage01(int matchFactoryType, int multiplyOrDivideOrModulusIndex) {
-        int[] matchExpressionMessage = new int[2];
-        matchExpressionMessage[0] = matchFactoryType;
-        matchExpressionMessage[1] = multiplyOrDivideOrModulusIndex;
-
-        return matchExpressionMessage;
-    }
 
     private int matchDigit01(char[] inFixExpression, int currentCharIndex, int startCharIndex, int endCharIndex) {
         if (endCharIndex != startCharIndex) {
@@ -347,6 +285,97 @@ public class SimpleParser02 {
         return part;
     }
 
+    private int[] matchExpressionMessage01(char[] inFixExpression, int currentCharIndex, int startCharIndex, int endCharIndex) {
+        if (inFixExpression[currentCharIndex] >= '0' && inFixExpression[currentCharIndex] <= '9') {
+            if (startCharIndex == endCharIndex) {
+                return packMatchExpressionMessage01(1, 0);
+            }
+
+            if (inFixExpression[currentCharIndex - 1] == '+') {
+                return packMatchExpressionMessage01(2, currentCharIndex - 1);
+            }
+            if (inFixExpression[currentCharIndex - 1] == '-') {
+                return packMatchExpressionMessage01(3, currentCharIndex - 1);
+            }
+        }
+
+        if (inFixExpression[currentCharIndex] >= ')') {
+            int matchParenthese = 1;
+            for (int i = currentCharIndex - 1; i >= startCharIndex; i--) {
+                if (inFixExpression[i] == '(') {
+                    matchParenthese--;
+                } else if (inFixExpression[i] == ')') {
+                    matchParenthese++;
+                }
+
+                if (matchParenthese == 0) {
+                    if (i == startCharIndex) {
+                        return packMatchFactoryMessage01(4, 0);
+                    }
+                    if (inFixExpression[i - 1] == '+') {
+                        return packMatchFactoryMessage01(5, i - 1);
+                    }
+                    if (inFixExpression[i - 1] == '-') {
+                        return packMatchFactoryMessage01(6, i - 1);
+                    }
+                }
+            }
+        }
+
+        int matchParenthese = 0;
+        int matchExpression = 0;
+        for (int i = currentCharIndex; i >= startCharIndex; i--) {
+            if (inFixExpression[i] == '(') {
+                matchParenthese--;
+            } else if (inFixExpression[i] == ')') {
+                matchParenthese++;
+            } else if (inFixExpression[i] == '+' || inFixExpression[i] == '-') {
+                matchExpression++;
+            }
+
+            if (matchParenthese == 0 && matchExpression > 0) {
+                return packMatchFactoryMessage01(7, i);
+            }
+        }
+
+        return packMatchExpressionMessage01(0, 0);
+    }
+    
+    private int[] packMatchExpressionMessage01(int matchFactoryType, int multiplyOrDivideOrModulusIndex) {
+        int[] matchExpressionMessage = new int[2];
+        matchExpressionMessage[0] = matchFactoryType;
+        matchExpressionMessage[1] = multiplyOrDivideOrModulusIndex;
+
+        return matchExpressionMessage;
+    }
+    
+    private char[] doMatchExpress01(char[] part1, char part2, char part3) {
+        char[] part = new char[part1.length + 1 + 1];
+
+        for (int i = 0, j = 0; j < part1.length; i++, j++) {
+            part[i] = part1[j];
+        }
+        part[part.length - 2] = part3;
+        part[part.length - 1] = part2;
+
+        return part;
+    }
+
+    private char[] doMatchExpress01(char[] part1, char part2, char[] part3) {
+        char[] part = new char[part1.length + 1 + part3.length];
+
+        for (int i = 0, j = 0; j < part1.length; i++, j++) {
+            part[i] = part1[j];
+        }
+        for (int i = part1.length, j = 0; j < part3.length; i++, j++) {
+            part[i] = part3[j];
+        }
+        part[part.length - 1] = part2;
+
+        return part;
+    }
+    
+    
     public static void main(String[] args) {
 		SimpleParser02 simpleParser = new SimpleParser02();
 		char[] inFixExpression = "(1*3+4*6*7+(9-5)*(2))".toCharArray();
