@@ -1,4 +1,4 @@
-package chapter02;
+package main.chapter02.part01;
 
 /**
  * 此类用于将

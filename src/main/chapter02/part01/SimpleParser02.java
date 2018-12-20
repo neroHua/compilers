@@ -1,4 +1,4 @@
-package chapter02;
+package main.chapter02.part01;
 
 /**
  * 此类用于将
@@ -24,7 +24,7 @@ public class SimpleParser02 {
      *              factory * term |
      *              factory \ term |
      *              factory % term
-	 *              
+     *              
 	 *  term:       (digit) |
 	 *              (expression) |
 	 *              (factory)
@@ -42,10 +42,10 @@ public class SimpleParser02 {
 	 * 				9
 	 * 
 	 * translate schemes:
-	 * 	expression: factory {'factory'} |
+     * 	expression: factory {'factory'} |
      *              expression + factory {'expression factory +'} |
      *              expression - factory {'expression factory -'} |
-	 *              
+     *              
      *  factory:    term {'term'} |
      *              factory * term {'factory term *'}  |
      *              factory \ term {'factory term \'}  |
