@@ -14,62 +14,62 @@ package main.chapter02.part01;
  */
 public class SimpleParser02 {
 
-	/**
-	 * productions:
-	 * 	expression: factory |
-	 *              expression + factory |
-	 *              expression - factory
-	 *              
-	 *  factory:    term |
-     *              factory * term |
-     *              factory \ term |
-     *              factory % term
+    /**
+     * productions:
+     *     expression: factory |
+     *                 expression + factory |
+     *                 expression - factory
      *              
-	 *  term:       (digit) |
-	 *              (expression) |
-	 *              (factory)
-	 *              digit
-	 *              
-	 * 	digit:      0 |
-	 * 				1 |
-	 * 				2 |
-	 * 				3 |
-	 * 				4 |
-	 * 				5 |
-	 * 				6 |
-	 * 				7 |
-	 * 				8 |
-	 * 				9
-	 * 
-	 * translate schemes:
-     * 	expression: factory {'factory'} |
-     *              expression + factory {'expression factory +'} |
-     *              expression - factory {'expression factory -'} |
+     *     factory:    term |
+     *                 factory * term |
+     *                 factory \ term |
+     *                 factory % term
      *              
-     *  factory:    term {'term'} |
-     *              factory * term {'factory term *'}  |
-     *              factory \ term {'factory term \'}  |
-     *              factory % term {'factory term %'}
+     *     term:       (digit) |
+     *                 (expression) |
+     *                 (factory)
+     *                 digit
      *              
-	 *  term:       (digit) {'digit'} |
-	 *              (expression) {'expression'} |
-	 *              (factory) {'factory'} |
-	 *              digit
-	 *              
-	 * 	digit:      0 {'0'} |
-	 *              1 {'1'} |
-	 *              2 {'2'} |
-	 *              3 {'3'} |
-	 *              4 {'4'} |
-	 *              5 {'5'} |
-	 *              6 {'6'} |
-	 *              7 {'7'} |
-	 *              8 {'8'} |
-	 *              9 {'9'}
-	 * 
-	 * @param expression
-	 * @return
-	 */
+     *     digit:      0 |
+     *                 1 |
+     *                 2 |
+     *                 3 |
+     *                 4 |
+     *                 5 |
+     *                 6 |
+     *                 7 |
+     *                 8 |
+     *                 9
+     * 
+     * translate schemes:
+     *     expression: factory {'factory'} |
+     *                 expression + factory {'expression factory +'} |
+     *                 expression - factory {'expression factory -'} |
+     *              
+     *     factory:    term {'term'} |
+     *                 factory * term {'factory term *'}  |
+     *                 factory \ term {'factory term \'}  |
+     *                 factory % term {'factory term %'}
+     *              
+     *     term:       (digit) {'digit'} |
+     *                 (expression) {'expression'} |
+     *                 (factory) {'factory'} |
+     *                 digit
+     *              
+     *     digit:      0 {'0'} |
+     *                 1 {'1'} |
+     *                 2 {'2'} |
+     *                 3 {'3'} |
+     *                 4 {'4'} |
+     *                 5 {'5'} |
+     *                 6 {'6'} |
+     *                 7 {'7'} |
+     *                 8 {'8'} |
+     *                 9 {'9'}
+     * 
+     * @param expression
+     * @return
+     */
     public char[] postFixScanFromRightToLeft(char[] inFixExpression) {
         return subPostFixScanFromRightToLeft(inFixExpression, inFixExpression.length - 1, 0, inFixExpression.length - 1);
     }
@@ -1457,9 +1457,9 @@ public class SimpleParser02 {
     }
     
     public static void main(String[] args) {
-		SimpleParser02 simpleParser = new SimpleParser02();
-		char[] inFixExpression = "((1*2)+3*4*5+(6-7)*(8)+9)".toCharArray();
-		
+        SimpleParser02 simpleParser = new SimpleParser02();
+        char[] inFixExpression = "((1*2)+3*4*5+(6-7)*(8)+9)".toCharArray();
+        
         char[] postFixExpression1 = simpleParser.postFixScanFromRightToLeft(inFixExpression);
         String postFix1 = new String(postFixExpression1);
         System.out.println(postFix1);
@@ -1475,5 +1475,5 @@ public class SimpleParser02 {
         char[] pretFixExpression2 = simpleParser.preFixScanFromLeftToRight(inFixExpression);
         String preFix2 = new String(pretFixExpression2);
         System.out.println(preFix2);
-	}
+    }
 }
