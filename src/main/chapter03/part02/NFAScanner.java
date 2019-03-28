@@ -23,17 +23,21 @@ public class NFAScanner {
         this.hasNextScanedIndexBeenAddConcateNation = false;
     }
     
+    public int getScannedIndex() {
+        return this.scannedIndex;
+    }
+    
     public NFAOperation getNextOperation() {
         if (scannedIndex >= expression.length - 1) {
             throw new RuntimeException("no more char need to be scanned");
         }
         if (scannedIndex == -1) {
             if (expression[scannedIndex + 1] == '|') {
-                throw new RuntimeException("| should not in the first place of one expression:" + expression.toString());
+                throw new RuntimeException("| should not in the first place of one expression:" + String.copyValueOf(expression));
             }
             
             if (expression[scannedIndex + 1] == '*') {
-                throw new RuntimeException("* should not in the first place of one expression:" + expression.toString());
+                throw new RuntimeException("* should not in the first place of one expression:" + String.copyValueOf(expression));
             }
 
             if (expression[scannedIndex + 1] == '(') {
@@ -41,8 +45,7 @@ public class NFAScanner {
                 return new NFAOperationParentheseLeft();
             }
             if (expression[scannedIndex + 1] == ')') {
-                scannedIndex++;
-                return new NFAOperationParentheseRight();
+                throw new RuntimeException(") should not in the first place of one expression:" + String.copyValueOf(expression));
             }
             
             if (expression[scannedIndex + 1] == '[') {
@@ -55,25 +58,25 @@ public class NFAScanner {
                 }
                 if (i < expression.length) {
                     scannedIndex = i + 1;
-                    return new NFAOperationScopeUnion(expression, oldScanedIndex, i);
+                    return new NFAOperationScopeUnion(expression, oldScanedIndex + 1, i);
                 }
-                throw new RuntimeException("cant't find a ] int the " + expression.toString());
+                throw new RuntimeException("cant't find a ] int the " + String.copyValueOf(expression));
             }
             
             if (expression[scannedIndex + 1] == ']') {
-                throw new RuntimeException("] should not in the first place of one expression:" + expression.toString());
+                throw new RuntimeException("] should not in the first place of one expression:" + String.copyValueOf(expression));
             }
 
             if (expression[scannedIndex + 1] == '{') {
-                throw new RuntimeException("{ should not in the first place of one expression:" + expression.toString());
+                throw new RuntimeException("{ should not in the first place of one expression:" + String.copyValueOf(expression));
             }
 
             if (expression[scannedIndex + 1] == '}') {
-                throw new RuntimeException("} should not in the first place of one expression:" + expression.toString());
+                throw new RuntimeException("} should not in the first place of one expression:" + String.copyValueOf(expression));
             }
             
             scannedIndex++;
-            return new NFAOperationBase(expression, scannedIndex - 1, scannedIndex - 1);
+            return new NFAOperationBase(expression, scannedIndex, scannedIndex);
         } else {
             if (expression[scannedIndex + 1] == '|') {
                 scannedIndex++;
@@ -117,7 +120,7 @@ public class NFAScanner {
                         scannedIndex = i + 1;
                         return new NFAOperationScopeUnion(expression, oldScanedIndex, i);
                     }
-                    throw new RuntimeException("cant't find a ] int the " + expression.toString());
+                    throw new RuntimeException("cant't find a ] int the " + String.copyValueOf(expression));
                 } 
                 
                 if (!hasNextScanedIndexBeenAddConcateNation) {
@@ -136,12 +139,12 @@ public class NFAScanner {
                         scannedIndex = i + 1;
                         return new NFAOperationScopeUnion(expression, oldScanedIndex, i);
                     }
-                    throw new RuntimeException("cant't find a ] int the " + expression.toString());
+                    throw new RuntimeException("cant't find a ] int the " + String.copyValueOf(expression));
                 }   
             }
 
             if (expression[scannedIndex + 1] == ']') {
-                throw new RuntimeException("] should after[ in one expression:" + expression.toString());
+                throw new RuntimeException("] should after[ in one expression:" + String.copyValueOf(expression));
             }
 
             if (expression[scannedIndex + 1] == '{') {
@@ -156,11 +159,11 @@ public class NFAScanner {
                     scannedIndex = i + 1;
                     return new NFAOperationScopeUnion(expression, oldScanedIndex, i);
                 }
-                throw new RuntimeException("cant't find a } int the " + expression.toString());
+                throw new RuntimeException("cant't find a } int the " + String.copyValueOf(expression));
             }
 
             if (expression[scannedIndex + 1] == '}') {
-                throw new RuntimeException("} should after{ in one expression:" + expression.toString());
+                throw new RuntimeException("} should after{ in one expression:" + String.copyValueOf(expression));
             }
             
             if (expression[scannedIndex] == '|') {
