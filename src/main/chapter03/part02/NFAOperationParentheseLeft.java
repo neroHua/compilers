@@ -6,7 +6,9 @@ package main.chapter03.part02;
  *
  */
 public class NFAOperationParentheseLeft implements NFAOperation {
-
+    
+    private final int priority = 2;  
+    
     @Override 
     public NFAGraph getNFAGraph() {
         return null;
@@ -15,6 +17,11 @@ public class NFAOperationParentheseLeft implements NFAOperation {
     @Override
     public boolean hasInnerOperation() {
         return false;
+    }
+    
+    @Override
+    public int getPriority() {
+        return this.priority;
     }
 
 }

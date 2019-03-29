@@ -7,6 +7,8 @@ package main.chapter03.part02;
  */
 public class NFAOperationUnion implements NFAOperation {
     
+    private final int priority = 5;  
+    
     @Override
     public NFAGraph getNFAGraph() {
         return null;
@@ -15,6 +17,11 @@ public class NFAOperationUnion implements NFAOperation {
     @Override
     public boolean hasInnerOperation() {
         return false;
+    }
+    
+    @Override
+    public int getPriority() {
+        return this.priority;
     }
 
 }

@@ -10,5 +10,7 @@ public interface NFAOperation {
     
     NFAGraph getNFAGraph();
     
+    int getPriority();
+
     boolean hasInnerOperation();
 }

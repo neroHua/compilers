@@ -8,7 +8,9 @@ package main.chapter03.part02;
 public class NFAOperationCountUnion implements NFAOperation {
     
     private char[] content;
-    
+
+    private final int priority = 3;  
+
     public NFAOperationCountUnion() {
         
     }
@@ -33,4 +35,10 @@ public class NFAOperationCountUnion implements NFAOperation {
     public boolean hasInnerOperation() {
         return false;
     }
+
+    @Override
+    public int getPriority() {
+        return this.priority;
+    }
+
 }
