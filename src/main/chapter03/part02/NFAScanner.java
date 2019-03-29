@@ -2,7 +2,7 @@ package main.chapter03.part02;
 
 /**
  * 
- * 负责解析表达式，将表达式转成一个个Operation
+ * 负责解析表达式，将表达式转成一个个Operation,从左往右扫描
  * 
  *
  */
