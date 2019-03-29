@@ -27,6 +27,14 @@ public class NFAScanner {
         return this.scannedIndex;
     }
     
+    public boolean getHasNextScanedIndexBeenAddConcateNation() {
+        return hasNextScanedIndexBeenAddConcateNation;
+    }
+    
+    public boolean hasNextOperation() {
+        return scannedIndex < expression.length - 1 ? true : false;
+    }
+
     public NFAOperation getNextOperation() {
         if (scannedIndex >= expression.length - 1) {
             throw new RuntimeException("no more char need to be scanned");
@@ -42,6 +50,7 @@ public class NFAScanner {
 
             if (expression[scannedIndex + 1] == '(') {
                 scannedIndex++;
+                hasNextScanedIndexBeenAddConcateNation = true;
                 return new NFAOperationParentheseLeft();
             }
             if (expression[scannedIndex + 1] == ')') {
@@ -57,8 +66,8 @@ public class NFAScanner {
                     }
                 }
                 if (i < expression.length) {
-                    scannedIndex = i + 1;
-                    return new NFAOperationScopeUnion(expression, oldScanedIndex + 1, i);
+                    scannedIndex = i;
+                    return new NFAOperationScopeUnion(expression, oldScanedIndex + 2, i - 1);
                 }
                 throw new RuntimeException("cant't find a ] int the " + String.copyValueOf(expression));
             }
@@ -84,12 +93,14 @@ public class NFAScanner {
             }
             
             if (expression[scannedIndex + 1] == '*') {
+                scannedIndex++;
                 return new NFAOperationClosure();
             }
             
             if (expression[scannedIndex + 1] == '(') {
                if (expression[scannedIndex] == '|') {
                    scannedIndex++;
+                   hasNextScanedIndexBeenAddConcateNation = true;
                    return new NFAOperationParentheseLeft();
                } 
                
@@ -98,13 +109,15 @@ public class NFAScanner {
                    return new NFAOperationConcatenation();
                } else {
                    scannedIndex++;
-                   hasNextScanedIndexBeenAddConcateNation = false;
+                   hasNextScanedIndexBeenAddConcateNation = true;
                    return new NFAOperationParentheseLeft();
                }
             }
             
             if (expression[scannedIndex + 1] == ')') {
-                return new NFAOperationParentheseLeft();
+                scannedIndex++;
+                hasNextScanedIndexBeenAddConcateNation = false;
+                return new NFAOperationParentheseRight();
             }
             
             if (expression[scannedIndex + 1] == '[') {
@@ -117,8 +130,8 @@ public class NFAScanner {
                         }
                     }
                     if (i < expression.length) {
-                        scannedIndex = i + 1;
-                        return new NFAOperationScopeUnion(expression, oldScanedIndex, i);
+                        scannedIndex = i;
+                        return new NFAOperationScopeUnion(expression, oldScanedIndex + 2, i - 1);
                     }
                     throw new RuntimeException("cant't find a ] int the " + String.copyValueOf(expression));
                 } 
@@ -136,8 +149,8 @@ public class NFAScanner {
                         }
                     }
                     if (i < expression.length) {
-                        scannedIndex = i + 1;
-                        return new NFAOperationScopeUnion(expression, oldScanedIndex, i);
+                        scannedIndex = i;
+                        return new NFAOperationScopeUnion(expression, oldScanedIndex + 2, i - 1);
                     }
                     throw new RuntimeException("cant't find a ] int the " + String.copyValueOf(expression));
                 }   
@@ -156,8 +169,8 @@ public class NFAScanner {
                     }
                 }
                 if (i < expression.length) {
-                    scannedIndex = i + 1;
-                    return new NFAOperationScopeUnion(expression, oldScanedIndex, i);
+                    scannedIndex = i;
+                    return new NFAOperationCountUnion(expression, oldScanedIndex + 2, i - 1);
                 }
                 throw new RuntimeException("cant't find a } int the " + String.copyValueOf(expression));
             }
@@ -168,8 +181,9 @@ public class NFAScanner {
             
             if (expression[scannedIndex] == '|') {
                 scannedIndex++;
-                return new NFAOperationParentheseLeft();
-            } 
+                hasNextScanedIndexBeenAddConcateNation = false;
+                return new NFAOperationBase(expression, scannedIndex, scannedIndex); 
+            }
             
             if (!hasNextScanedIndexBeenAddConcateNation) {
                 hasNextScanedIndexBeenAddConcateNation = true;
@@ -177,8 +191,8 @@ public class NFAScanner {
             } else {
                 scannedIndex++;
                 hasNextScanedIndexBeenAddConcateNation = false;
-                return new NFAOperationParentheseLeft();
-            }           
+                return new NFAOperationBase(expression, scannedIndex, scannedIndex);
+            }
         }
 
     }

@@ -14,7 +14,11 @@ public class NFAOperationCountUnion implements NFAOperation {
             this.content[i] = expression[i + startIndex];
         } 
     }
-
+    
+    public char[] getContent() {
+        return content;
+    }
+    
     @Override 
     public NFAGraph getNFAGraph() {
         return null;
