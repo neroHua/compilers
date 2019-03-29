@@ -3,6 +3,11 @@ package main.chapter03.part02;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * 根本运算
+ *
+ */
 public class NFAOperationBase implements NFAOperation {
     
     private char[] content;

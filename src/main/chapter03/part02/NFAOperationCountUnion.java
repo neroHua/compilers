@@ -1,5 +1,10 @@
 package main.chapter03.part02;
 
+/**
+ * 
+ * 符合运算：数量上的合并运算 {} 
+ *
+ */
 public class NFAOperationCountUnion implements NFAOperation {
     
     private char[] content;

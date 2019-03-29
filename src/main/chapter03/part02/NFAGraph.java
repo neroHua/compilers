@@ -2,6 +2,11 @@ package main.chapter03.part02;
 
 import java.util.List;
 
+/**
+ * 
+ * NFA图
+ *
+ */
 public class NFAGraph {
     
     int startState;

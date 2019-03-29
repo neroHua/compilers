@@ -1,5 +1,10 @@
 package main.chapter03.part02;
 
+/**
+ * 
+ * 复合运算：范围型 合并运算 [] 
+ *
+ */
 public class NFAOperationScopeUnion implements NFAOperation {
     
     private char[] content;

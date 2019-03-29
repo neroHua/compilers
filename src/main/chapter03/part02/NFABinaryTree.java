@@ -1,5 +1,10 @@
 package main.chapter03.part02;
 
+/**
+ * 
+ * 主要用于把一个大的的表达式,转换成一棵树，对树进行后序遍历即可得到表达式对应的NFA图
+ *
+ */
 public class NFABinaryTree {
     
     NFABinaryTree fatherTree;

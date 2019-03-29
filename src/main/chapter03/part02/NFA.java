@@ -2,7 +2,7 @@ package main.chapter03.part02;
 
 /**
  * 
- * 从一个正则表达式中,构造一个NFA
+ * 从一个正则表达式中,构造一个NFAGraph
  * 正则表达式如下(a 是ASCII作为字母表的任意一个字符)：
  *      unit:           a                               |
  *                      parentheses                     |

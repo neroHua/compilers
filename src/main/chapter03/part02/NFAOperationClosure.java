@@ -1,5 +1,10 @@
 package main.chapter03.part02;
 
+/**
+ * 
+ * 三大基本操作：闭包运算 *
+ *
+ */
 public class NFAOperationClosure implements NFAOperation {
     
     @Override

@@ -1,5 +1,11 @@
 package main.chapter03.part02;
 
+/**
+ * 
+ * 负责解析表达式，将表达式转成一个个Operation
+ * 
+ *
+ */
 public class NFAScanner {
     
     private char[] specialKey = {'\\', '|', '*', '(', ')', '[', ']', '{', '}', ','};
