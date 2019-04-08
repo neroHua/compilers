@@ -9,9 +9,20 @@ public class NFABinaryTree {
     
     NFABinaryTree fatherTree;
     Node fatherNode;
-    boolean asRightChildOfFatherNode;
 
-    Node root;
+    Node rootNode;
+    
+    public void NFABinaryTree() {
+        this.fatherTree = null;
+        this.fatherNode = null;
+        this.rootNode = null;
+    }
+    
+    public void NFABinaryTree(NFABinaryTree fatherTree, Node fatherNode, Node rootNode) {
+        this.fatherTree = fatherTree;
+        this.fatherNode = fatherNode;
+        this.rootNode = rootNode;
+    }
 
     public void addLeftChild(Node father, Node leftChild) {
         father.leftChild = leftChild;
@@ -24,8 +35,8 @@ public class NFABinaryTree {
     }
 
     public void addFatherNodeCurrentNodeAsLeftChild(Node currentNode, Node fatherNode) {
-        if (root == currentNode) {
-            root = fatherNode;
+        if (rootNode == currentNode) {
+            rootNode = fatherNode;
         }
 
         currentNode.father = fatherNode;
@@ -33,8 +44,8 @@ public class NFABinaryTree {
     }
 
     public void addFatherNodeCurrentNodeAsRightChild(Node currentNode, Node fatherNode) {
-        if (root == currentNode) {
-            root = fatherNode;
+        if (rootNode == currentNode) {
+            rootNode = fatherNode;
         }
 
         currentNode.father = fatherNode;
@@ -53,14 +64,14 @@ public class NFABinaryTree {
         addFatherNodeCurrentNodeAsLeftChild(currentNode, notHigherOperationNode);
     }
     
-    public void mergeNFABinaryTreeAsCurrentNodeRightChild(Node currentNode, NFABinaryTree toBeMergedNFABinaryTree) {
-        addRightChild(currentNode, toBeMergedNFABinaryTree.root);
-        toBeMergedNFABinaryTree = null;
+    public void mergeNFABinaryTreeAsCurrentNodeRightChild(Node currentNode, NFABinaryTree subNFABinaryTree) {
+        addRightChild(currentNode, subNFABinaryTree.rootNode);
+        subNFABinaryTree = null;
     }
 
-    public void mergeNFABinaryTreeAsCurrentNodeLeftChild(Node currentNode, NFABinaryTree toBeMergedNFABinaryTree) {
-        addLeftChild(currentNode, toBeMergedNFABinaryTree.root);
-        toBeMergedNFABinaryTree = null;
+    public void mergeNFABinaryTreeAsCurrentNodeLeftChild(Node currentNode, NFABinaryTree subNFABinaryTree) {
+        addLeftChild(currentNode, subNFABinaryTree.rootNode);
+        subNFABinaryTree = null;
     }
 
     public static class Node {
