@@ -18,16 +18,6 @@ import main.chapter03.part02.NFAScanner;
 public class NFAScannerTest {
     
 //    1.测试0位置
-//    @Test
-//    public void test001() {
-//        String expressionString = "ab";
-//        char[] expression = expressionString.toCharArray();
-//        NFAScanner scanner = new NFAScanner(expression, 0, expression.length - 1);
-//        NFAOperation nextOperation = scanner.getNextOperation();
-//
-//        Assert.assertEquals(new NFAOperationBase(expression, 0, 0).getClass(), nextOperation.getClass());
-//    }
-    
     @Test
     public void test001() {
         String expressionString = "|";
@@ -39,6 +29,7 @@ public class NFAScannerTest {
         } catch (Exception e) {
             Assert.assertEquals("| should not in the first place of one expression:" + String.copyValueOf(expression), e.getMessage());
         }
+
     }
 
     @Test

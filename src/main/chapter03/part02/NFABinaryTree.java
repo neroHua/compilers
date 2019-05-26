@@ -73,6 +73,18 @@ public class NFABinaryTree {
         addLeftChild(currentNode, subNFABinaryTree.rootNode);
         subNFABinaryTree = null;
     }
+    
+    public Node getRootNode() {
+        return this.rootNode;
+    }
+
+    public NFABinaryTree getFatherTree() {
+        return this.fatherTree;
+    }
+
+    public Node getFatherNode() {
+        return this.fatherNode;
+    }
 
     public static class Node {
 
@@ -84,6 +96,26 @@ public class NFABinaryTree {
 
         NFAGraph getNFAGraph() {
             return nfaOperation.getNFAGraph();
+        }
+        
+        public NFAOperation getNFAOperation() {
+            return this.nfaOperation;
+        }
+
+        public Node getFather() {
+            return father;
+        }
+
+        public Node getLeftChild() {
+            return leftChild;
+        }
+
+        public Node getRightChild() {
+            return rightChild;
+        }
+
+        public NFAOperation getNfaOperation() {
+            return nfaOperation;
         }
 
     }

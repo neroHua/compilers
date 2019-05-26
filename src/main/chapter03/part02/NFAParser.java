@@ -16,6 +16,7 @@ public class NFAParser {
     
     private NFAScanner nfaScanner;
     private NFABinaryTree tree;
+
     private int toBeClosedSubTreeCount;
     
     public NFAParser(NFAScanner nfaScanner) {
@@ -24,7 +25,7 @@ public class NFAParser {
         this.toBeClosedSubTreeCount = 0;
     }
     
-    public NFABinaryTree parser() {
+    public NFABinaryTree parse() {
         NFAOperation previousNFAOperation = null;
         NFAOperation currentNFAOperation = null;
         NFABinaryTree.Node previousNFANode = null;
@@ -36,17 +37,19 @@ public class NFAParser {
             previousNFANode = currentNFANode;
             currentNFANode = buildNFATreeNode(currentNFAOperation);
 
-            buildTree(previousNFAOperation, previousNFANode, currentNFAOperation, currentNFANode);
+            Node parentheseNode = buildTree(previousNFAOperation, previousNFANode, currentNFAOperation, currentNFANode);
+            currentNFANode = parentheseNode == null ? currentNFANode : parentheseNode;
         }
         
         return this.tree;
     }
     
-    private void buildTree(NFAOperation previousNFAOperation, NFABinaryTree.Node previousNFANode, NFAOperation currentNFAOperation, NFABinaryTree.Node currentNFANode) {
+    private Node buildTree(NFAOperation previousNFAOperation, NFABinaryTree.Node previousNFANode, NFAOperation currentNFAOperation, NFABinaryTree.Node currentNFANode) {
        if (null == previousNFAOperation && null == currentNFAOperation) {
-           return;
+           return null;
        }
 
+       Node parentheseNode = null;
        if (null == previousNFAOperation && null != currentNFAOperation) {
 
            if (currentNFAOperation instanceof NFAOperationParentheseLeft) {
@@ -62,20 +65,21 @@ public class NFAParser {
        if (null != previousNFAOperation && null != currentNFAOperation) {
            
           if (currentNFAOperation instanceof NFAOperationParentheseLeft) {
-              addHigherPriorityNode(currentNFANode);
+              addHigherPriorityNode(previousNFANode, currentNFANode);
               buildSubTree(currentNFANode);
               this.toBeClosedSubTreeCount++;
           } else if (currentNFAOperation instanceof NFAOperationParentheseRight) {
-              mergeSubTree();
+              parentheseNode = mergeSubTree();
               this.toBeClosedSubTreeCount--;
-          } else if (currentNFAOperation.getPriority() > previousNFAOperation.getPriority()) {
+          } else if (currentNFAOperation.getPriority() < previousNFAOperation.getPriority()) {
               addHigherPriorityNode(previousNFANode, currentNFANode);
-          } else if (currentNFAOperation.getPriority() <= previousNFAOperation.getPriority()) {
+          } else if (currentNFAOperation.getPriority() >= previousNFAOperation.getPriority()) {
               addNotHigherPriorityNode(previousNFANode, currentNFANode);
           }
 
        }
         
+       return parentheseNode;
     }
 
     private void buildRootTree(Node currentNFANode) {
@@ -92,10 +96,17 @@ public class NFAParser {
         this.tree = subTree;
     }
 
-    private void addHigherPriorityNode(Node currentNFANode) {
-    }
-
     private void addHigherPriorityNode(Node previousNFANode, Node currentNFANode) {
+        if (null == this.tree.rootNode) {
+            this.tree.rootNode = currentNFANode;
+            return;
+        }
+
+        if (currentNFANode.nfaOperation instanceof NFAOperationClosure || currentNFANode.nfaOperation instanceof NFAOperationCountUnion) {
+           addClosureORCountUnion(previousNFANode, currentNFANode);
+           return;
+        }
+
         while (previousNFANode.rightChild != null) {
             previousNFANode = previousNFANode.rightChild;
         }
@@ -104,6 +115,16 @@ public class NFAParser {
     }
 
     private void addNotHigherPriorityNode(Node previousNFANode, Node currentNFANode) {
+        if (null == this.tree.rootNode) {
+            this.tree.rootNode = currentNFANode;
+            return;
+        }
+
+        if (currentNFANode.nfaOperation instanceof NFAOperationClosure || currentNFANode.nfaOperation instanceof NFAOperationCountUnion) {
+           addClosureORCountUnion(previousNFANode, currentNFANode);
+           return ;
+        }
+
         while (null != previousNFANode.father) {
             previousNFANode = previousNFANode.father;
         }
@@ -113,8 +134,28 @@ public class NFAParser {
             this.tree.rootNode = currentNFANode;
         }
     }
+    
+    private void addClosureORCountUnion(Node previousNFANode, Node currentNFANode) {
+        if (null == previousNFANode.father) {
+            this.tree.rootNode = currentNFANode;
+            previousNFANode.father = currentNFANode;
+            currentNFANode.rightChild = previousNFANode;
+            return;
+        }
+        
+        Node oldFatherNode = previousNFANode.father;
+        if (previousNFANode == oldFatherNode.rightChild) {
+            oldFatherNode.rightChild = currentNFANode;
+        } else if (previousNFANode == oldFatherNode.leftChild) {
+            oldFatherNode.leftChild = currentNFANode;
+        }
 
-    private void mergeSubTree() {
+        previousNFANode.father = currentNFANode;
+        currentNFANode.rightChild = previousNFANode;
+        currentNFANode.father = oldFatherNode;
+    }
+
+    private Node mergeSubTree() {
         if (null == this.tree.fatherTree || this.toBeClosedSubTreeCount <= 0) {
             throw new RuntimeException("there is no more father tree to be merged with");
         }
@@ -143,9 +184,10 @@ public class NFAParser {
         }
         
         this.tree.fatherNode = parentheseNode;
-
         this.tree.fatherNode.rightChild = this.tree.rootNode;
         this.tree = this.tree.fatherTree;
+        
+        return parentheseNode;
     }
 
     private Node buildNFATreeNode(NFAOperation nfaOperation) {
@@ -154,4 +196,7 @@ public class NFAParser {
         return node;
     }
     
+    public int getToBeClosedSubTreeCount() {
+        return toBeClosedSubTreeCount;
+    }
 }
