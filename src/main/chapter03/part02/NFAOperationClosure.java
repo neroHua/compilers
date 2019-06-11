@@ -8,12 +8,14 @@ import java.util.List;
  * 三大基本操作：闭包运算 *
  *
  */
+@SuppressWarnings("unchecked")
 public class NFAOperationClosure implements NFAOperation {
     
     private final int priority = 3; 
     
     private final int STATUE_INCREA_COUNT = 2;
-    private final int START_STATUE = 0;
+    private final int CONVERT_EACH_STATE_INCREA_NUMBER = 1;
+    private final int START_STATE = 0;
 
     @Override
     public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
@@ -21,19 +23,16 @@ public class NFAOperationClosure implements NFAOperation {
         Integer secondStartState = secondNFAGraph.getStartState();
         Integer secondEndState = secondNFAGraph.getEndState();
 
-        @SuppressWarnings("unchecked")
         List<Integer>[][] graph = new ArrayList[secondGraph.length + STATUE_INCREA_COUNT][NFAGraph.ALL_CHAR_LENGTH];
        
+        final int END_STATE = secondGraph.length + 1;
         ArrayList<Integer> arrayList2 = new ArrayList<Integer>();
-        arrayList2.add(0);
+        arrayList2.add(START_STATE);
         // 新加的初始状态
-        for (int i = 0; i < 128; i++) {
-            graph[0][i] = (ArrayList<Integer>) arrayList2.clone();
-        }
-
         // 新加的结束状态
-        for (int i = 0; i < 129; i++) {
-            graph[graph.length + 1][i] = (ArrayList<Integer>) arrayList2.clone();
+        for (int i = 0; i < NFAGraph.ALL_CHAR_LENGTH; i++) {
+            graph[START_STATE][i] = (ArrayList<Integer>) arrayList2.clone();
+            graph[END_STATE][i] = (ArrayList<Integer>) arrayList2.clone();
         }
         
         // 中间的状态
@@ -45,20 +44,20 @@ public class NFAOperationClosure implements NFAOperation {
 
         // 特殊处理的状态
         ArrayList<Integer> arrayList1 = new ArrayList<Integer>();
-        arrayList1.add(secondStartState + 1);
-        arrayList1.add(secondEndState + secondGraph.length);
-        graph[0][129] = arrayList1;
-        graph[secondGraph.length + 1][129] = (ArrayList<Integer>) arrayList1.clone();
+        arrayList1.add(secondStartState + CONVERT_EACH_STATE_INCREA_NUMBER);
+        arrayList1.add(END_STATE);
+        graph[START_STATE][NFAGraph.ALL_CHAR_LENGTH - 1] = arrayList1;
+        graph[END_STATE - CONVERT_EACH_STATE_INCREA_NUMBER][NFAGraph.ALL_CHAR_LENGTH - 1] = (ArrayList<Integer>) arrayList1.clone();
  
-        return new NFAGraph(START_STATUE, secondGraph.length + 1, graph);
+        return new NFAGraph(START_STATE, END_STATE, graph);
     } 
 
     private List<Integer> convert(List<Integer> toBeConvertStateList) {
         for (int i = 0; i < toBeConvertStateList.size(); i++) {
-            if (0 == toBeConvertStateList.get(i)) {
+            if (START_STATE == toBeConvertStateList.get(i)) {
                 continue;
             } else {
-                toBeConvertStateList.set(i, toBeConvertStateList.get(i) + 1);
+                toBeConvertStateList.set(i, toBeConvertStateList.get(i) + CONVERT_EACH_STATE_INCREA_NUMBER);
             }
         }
 

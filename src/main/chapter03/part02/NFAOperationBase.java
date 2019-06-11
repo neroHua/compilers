@@ -8,6 +8,7 @@ import java.util.List;
  * 根本运算
  *
  */
+@SuppressWarnings("unchecked")
 public class NFAOperationBase implements NFAOperation {
     
     private char[] content;
@@ -31,7 +32,6 @@ public class NFAOperationBase implements NFAOperation {
 
     @Override
     public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
-        @SuppressWarnings("unchecked")
         List<Integer>[][] graph = new ArrayList[STATUE_COUNT][NFAGraph.ALL_CHAR_LENGTH]; // 状态转换图 129位代表E
 
         ArrayList<Integer> contentTransformList1 = new ArrayList<Integer>();
