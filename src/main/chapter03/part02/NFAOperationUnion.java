@@ -10,7 +10,7 @@ public class NFAOperationUnion implements NFAOperation {
     private final int priority = 5;  
     
     @Override
-    public NFAGraph getNFAGraph() {
+    public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
         return null;
     }
     

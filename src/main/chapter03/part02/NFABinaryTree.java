@@ -23,6 +23,21 @@ public class NFABinaryTree {
         this.fatherNode = fatherNode;
         this.rootNode = rootNode;
     }
+    
+    public NFAGraph getNFAGraph(Node node) {
+        
+        NFAGraph leftChildNFAGraph = null;
+        if (null != node.leftChild) {
+            leftChildNFAGraph = getNFAGraph(node.leftChild);
+        }
+
+        NFAGraph rightChildNFAGraph = null;
+        if (null != node.rightChild) {
+            rightChildNFAGraph = getNFAGraph(node.rightChild);
+        }
+        
+       return node.getNFAGraph(leftChildNFAGraph, rightChildNFAGraph);
+    }
 
     public void addLeftChild(Node father, Node leftChild) {
         father.leftChild = leftChild;
@@ -94,10 +109,10 @@ public class NFABinaryTree {
 
         NFAOperation nfaOperation;
 
-        NFAGraph getNFAGraph() {
-            return nfaOperation.getNFAGraph();
+        public NFAGraph getNFAGraph(NFAGraph leftChildNFAGraph, NFAGraph rightChildNFAGraph) {
+            return nfaOperation.getNFAGraph(leftChildNFAGraph, rightChildNFAGraph);
         }
-        
+
         public NFAOperation getNFAOperation() {
             return this.nfaOperation;
         }

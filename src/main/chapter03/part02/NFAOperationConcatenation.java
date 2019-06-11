@@ -9,7 +9,7 @@ public class NFAOperationConcatenation implements NFAOperation {
 
     private final int priority = 4; 
 
-    public NFAGraph getNFAGraph() {
+    public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
         return null;
     }
     

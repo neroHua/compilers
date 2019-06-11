@@ -10,7 +10,7 @@ public class NFAOperationParentheseLeft implements NFAOperation {
     private final int priority = 2;  
     
     @Override 
-    public NFAGraph getNFAGraph() {
+    public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
         return null;
     }
     

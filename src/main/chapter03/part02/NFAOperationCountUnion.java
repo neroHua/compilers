@@ -27,7 +27,7 @@ public class NFAOperationCountUnion implements NFAOperation {
     }
     
     @Override 
-    public NFAGraph getNFAGraph() {
+    public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
         return null;
     }
     

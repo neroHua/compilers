@@ -8,7 +8,7 @@ package main.chapter03.part02;
  */
 public interface NFAOperation {
     
-    NFAGraph getNFAGraph();
+    NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph);
     
     int getPriority();
 

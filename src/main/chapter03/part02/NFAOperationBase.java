@@ -13,7 +13,11 @@ public class NFAOperationBase implements NFAOperation {
     private char[] content;
     
     private final int priority = 0;
-    
+
+    private final int STATUE_COUNT = 2; 
+    private final int START_STATUE = 0;
+    private final int END_STATUE = 1; 
+
     public NFAOperationBase(char[] expression, int startIndex, int endIndex) {
         this.content = new char[endIndex - startIndex + 1];
         for (int i = 0; i < this.content.length; i++) {
@@ -26,16 +30,23 @@ public class NFAOperationBase implements NFAOperation {
     }
 
     @Override
-    public NFAGraph getNFAGraph() {
+    public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
         @SuppressWarnings("unchecked")
-        List<Integer>[][] graph = new ArrayList[2][129]; // 状态转换图 129位代表E
+        List<Integer>[][] graph = new ArrayList[STATUE_COUNT][NFAGraph.ALL_CHAR_LENGTH]; // 状态转换图 129位代表E
 
-        List<Integer> contentTransformList = new ArrayList<Integer>();
-        contentTransformList.add(1);
+        ArrayList<Integer> contentTransformList1 = new ArrayList<Integer>();
+        contentTransformList1.add(START_STATUE);
+        for (int i = 0; i < STATUE_COUNT; i++) {
+            for ( int j = 0; j < NFAGraph.ALL_CHAR_LENGTH; j++) {
+                graph[i][j] = (List<Integer>) contentTransformList1.clone();
+            }
+        }
 
-        graph[0][content[0]] = contentTransformList;
+        List<Integer> contentTransformList2 = new ArrayList<Integer>();
+        contentTransformList2.add(END_STATUE);
+        graph[START_STATUE][content[0]] = contentTransformList2;
 
-        return new NFAGraph(0, 1, graph);
+        return new NFAGraph(START_STATUE, END_STATUE, graph);
     }
 
     @Override
