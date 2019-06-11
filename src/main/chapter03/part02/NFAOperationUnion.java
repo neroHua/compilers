@@ -77,7 +77,6 @@ public class NFAOperationUnion implements NFAOperation {
 
         return toBeConvertStateList;
     }
-
    
     @Override
     public boolean hasInnerOperation() {
