@@ -8,7 +8,6 @@ import java.util.List;
  * 三大基本操作：闭包运算 *
  *
  */
-@SuppressWarnings("unchecked")
 public class NFAOperationClosure implements NFAOperation {
     
     private final int priority = 3; 
@@ -21,19 +20,12 @@ public class NFAOperationClosure implements NFAOperation {
     public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
         List<Integer>[][] secondGraph = secondNFAGraph.getGraph();
         Integer secondStartState = secondNFAGraph.getStartState();
-        Integer secondEndState = secondNFAGraph.getEndState();
 
         List<Integer>[][] graph = new ArrayList[secondGraph.length + STATUE_INCREA_COUNT][NFAGraph.ALL_CHAR_LENGTH];
        
         final int END_STATE = secondGraph.length + 1;
         ArrayList<Integer> arrayList2 = new ArrayList<Integer>();
         arrayList2.add(START_STATE);
-        // 新加的初始状态
-        // 新加的结束状态
-        for (int i = 0; i < NFAGraph.ALL_CHAR_LENGTH; i++) {
-            graph[START_STATE][i] = (ArrayList<Integer>) arrayList2.clone();
-            graph[END_STATE][i] = (ArrayList<Integer>) arrayList2.clone();
-        }
         
         // 中间的状态
         for (int i = 0; i < secondGraph.length; i++) {
@@ -53,15 +45,16 @@ public class NFAOperationClosure implements NFAOperation {
     } 
 
     private List<Integer> convert(List<Integer> toBeConvertStateList) {
-        for (int i = 0; i < toBeConvertStateList.size(); i++) {
-            if (START_STATE == toBeConvertStateList.get(i)) {
-                continue;
-            } else {
-                toBeConvertStateList.set(i, toBeConvertStateList.get(i) + CONVERT_EACH_STATE_INCREA_NUMBER);
-            }
+        if (null == toBeConvertStateList) {
+            return null;
         }
 
-        return toBeConvertStateList;
+        List<Integer> convertedList = new ArrayList<Integer>();
+        for (int i = 0; i < toBeConvertStateList.size(); i++) {
+            convertedList.add(i, toBeConvertStateList.get(i) + CONVERT_EACH_STATE_INCREA_NUMBER);
+        }
+
+        return convertedList;
     }
 
     @Override

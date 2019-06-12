@@ -40,11 +40,11 @@ public class NFABinaryTreeTest {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 129; j++) {
                 List<Integer> list = graph[i][j];
-                Assert.assertEquals(1, list.size());
                 if(0 == i && 'a' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else {
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -66,13 +66,14 @@ public class NFABinaryTreeTest {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 129; j++) {
                 List<Integer> list = graph[i][j];
-                Assert.assertEquals(1, list.size());
                 if (0 == i && 'a' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else if (0 == i && 'b' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else {
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -94,11 +95,11 @@ public class NFABinaryTreeTest {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 129; j++) {
                 List<Integer> list = graph[i][j];
-                Assert.assertEquals(1, list.size());
                 if(0 == i && 'a' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else {
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -129,8 +130,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -168,8 +168,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(4));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -202,8 +201,7 @@ public class NFABinaryTreeTest {
                     Assert.assertTrue(list.contains(1));
                     Assert.assertTrue(list.contains(3));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -263,8 +261,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(12));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -295,8 +292,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -325,8 +321,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -370,8 +365,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(5));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -409,8 +403,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(4));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -446,8 +439,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(4));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -493,8 +485,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(7));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -535,8 +526,7 @@ public class NFABinaryTreeTest {
                     Assert.assertTrue(list.contains(1));
                     Assert.assertTrue(list.contains(5));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -572,8 +562,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(4));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -638,8 +627,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(12));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -676,8 +664,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(4));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -705,8 +692,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -744,8 +730,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(4));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -778,8 +763,7 @@ public class NFABinaryTreeTest {
                     Assert.assertTrue(list.contains(1));
                     Assert.assertTrue(list.contains(3));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -808,8 +792,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -869,8 +852,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(12));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -898,8 +880,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -943,8 +924,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(7));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -998,8 +978,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(10));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1048,8 +1027,7 @@ public class NFABinaryTreeTest {
                     Assert.assertTrue(list.contains(1));
                     Assert.assertTrue(list.contains(8));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1093,8 +1071,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(7));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1183,8 +1160,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(21));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1228,8 +1204,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(7));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1257,8 +1232,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1296,8 +1270,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(4));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1330,8 +1303,7 @@ public class NFABinaryTreeTest {
                     Assert.assertTrue(list.contains(1));
                     Assert.assertTrue(list.contains(3));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1359,8 +1331,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1420,8 +1391,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(12));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -1449,8 +1419,7 @@ public class NFABinaryTreeTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }

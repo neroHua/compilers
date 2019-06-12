@@ -79,8 +79,7 @@ public class NFAOperationCountUnionTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(12));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }

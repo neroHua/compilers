@@ -38,12 +38,6 @@ public class NFAOperationUnion implements NFAOperation {
         final int CONVERT_SECOND_EACH_STATE_INCREA_NUMBER = firstGraph.length + 1;
         ArrayList<Integer> arrayList2 = new ArrayList<Integer>();
         arrayList2.add(START_STATE);
-        // 新加的初始状态
-        // 新加的结束状态
-        for (int i = 0; i < NFAGraph.ALL_CHAR_LENGTH; i++) {
-            graph[START_STATE][i] = (ArrayList<Integer>) arrayList2.clone();
-            graph[END_STATE][i] = (ArrayList<Integer>) arrayList2.clone();
-        }
         
         // 中间的状态: 第一部分
         for (int i = 1; i < firstGraph.length + 1; i++) {
@@ -74,13 +68,13 @@ public class NFAOperationUnion implements NFAOperation {
     }
 
     private List<Integer> convert(List<Integer> toBeConvertStateList, Integer increaNumber) {
+        if (null == toBeConvertStateList) {
+            return null;
+        }
+
         List<Integer> convertedList = new ArrayList<Integer>();
         for (int i = 0; i < toBeConvertStateList.size(); i++) {
-            if (START_STATE == toBeConvertStateList.get(i)) {
-                convertedList.add(i, toBeConvertStateList.get(i));
-            } else {
-                convertedList.add(i, toBeConvertStateList.get(i) + increaNumber);
-            }
+            convertedList.add(i, toBeConvertStateList.get(i) + increaNumber);
         }
 
         return convertedList;

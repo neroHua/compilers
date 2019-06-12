@@ -48,8 +48,7 @@ public class NFAOperationConcatenationTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(2));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -87,8 +86,7 @@ public class NFAOperationConcatenationTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(3));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }

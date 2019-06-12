@@ -33,14 +33,6 @@ public class NFAOperationScopeUnion implements NFAOperation {
     public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
         List<Integer>[][] graph = new ArrayList[STATUE_COUNT][NFAGraph.ALL_CHAR_LENGTH]; // 状态转换图 129位代表E
 
-        ArrayList<Integer> contentTransformList1 = new ArrayList<Integer>();
-        contentTransformList1.add(START_STATUE);
-        for (int i = 0; i < STATUE_COUNT; i++) {
-            for ( int j = 0; j < NFAGraph.ALL_CHAR_LENGTH; j++) {
-                graph[i][j] = (List<Integer>) contentTransformList1.clone();
-            }
-        }
-
         ArrayList<Integer> contentTransformList2 = new ArrayList<Integer>();
         contentTransformList2.add(END_STATUE);
         for (int i = 0; i < content.length; i++) {

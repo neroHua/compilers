@@ -37,13 +37,14 @@ public class NFAOperationScopeUnionTest {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 129; j++) {
                 List<Integer> list = graph[i][j];
-                Assert.assertEquals(1, list.size());
                 if (0 == i && 'a' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else if (0 == i && 'b' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else {
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -62,17 +63,20 @@ public class NFAOperationScopeUnionTest {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 129; j++) {
                 List<Integer> list = graph[i][j];
-                Assert.assertEquals(1, list.size());
                 if (0 == i && 'a' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else if (0 == i && 'b' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else if (0 == i && 'c' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else if (0 == i && 'd' == j) {
+                    Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(1));
                 } else {
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }

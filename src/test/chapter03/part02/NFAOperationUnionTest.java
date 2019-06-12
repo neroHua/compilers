@@ -58,8 +58,7 @@ public class NFAOperationUnionTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(4));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -117,8 +116,7 @@ public class NFAOperationUnionTest {
                     Assert.assertEquals(1, list.size());
                     Assert.assertTrue(list.contains(9));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }

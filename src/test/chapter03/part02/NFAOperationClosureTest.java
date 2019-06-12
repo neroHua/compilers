@@ -49,8 +49,7 @@ public class NFAOperationClosureTest {
                     Assert.assertTrue(list.contains(1));
                     Assert.assertTrue(list.contains(3));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
@@ -91,8 +90,7 @@ public class NFAOperationClosureTest {
                     Assert.assertTrue(list.contains(1));
                     Assert.assertTrue(list.contains(5));
                 } else {
-                    Assert.assertEquals(1, list.size());
-                    Assert.assertTrue(list.contains(0));
+                    Assert.assertNull(list);
                 }
             }
         }
