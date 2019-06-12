@@ -11,7 +11,7 @@ public class NFAOperationParenthese implements NFAOperation {
     
     @Override 
     public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
-        return null;
+        return secondNFAGraph;
     }
     
     @Override

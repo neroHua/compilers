@@ -32,13 +32,13 @@ public class NFAOperationCountUnion implements NFAOperation {
         int minCount = minAndMaxCount[0];
         int maxCount = minAndMaxCount[1];
         if (minCount > maxCount) {
-            throw new IllegalArgumentException("最小个数不能大于最大个数");
+            throw new IllegalArgumentException("minCount should not bigger than maxCount");
         }
         if (minCount < 1) {
-            throw new IllegalArgumentException("最小个数不能低于1");
+            throw new IllegalArgumentException("minCount should >= 1");
         }
         if (maxCount < 1) {
-            throw new IllegalArgumentException("最大个数不能低于1");
+            throw new IllegalArgumentException("maxCount should >= 1");
         }
 
         NFAGraph[] toBeUnionedGraph = new NFAGraph[maxCount - minCount + 1];
@@ -108,7 +108,7 @@ public class NFAOperationCountUnion implements NFAOperation {
             } else if ('9' == content[i]) {
                 currentNumber = 9;
             } else {
-                throw new IllegalArgumentException("被解析成字符数组中包含着不是数字的字符：" + content[i]);
+                throw new IllegalArgumentException("source string contains a char which may not be a digital" + content[i]);
             }
 
             result += currentNumber * degree;

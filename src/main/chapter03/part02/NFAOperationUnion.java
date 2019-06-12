@@ -18,6 +18,13 @@ public class NFAOperationUnion implements NFAOperation {
    
     @Override
     public NFAGraph getNFAGraph(NFAGraph firstNFAGraph, NFAGraph secondNFAGraph) {
+        if (null == firstNFAGraph) {
+            throw new IllegalArgumentException("firstNFAGrap should not be null");
+        }
+        if (null == secondNFAGraph) {
+            throw new IllegalArgumentException("secondNFAGrap should not be null");
+        }
+
         List<Integer>[][] firstGraph  = firstNFAGraph.getGraph();
         Integer firstStartState = firstNFAGraph.getStartState();
         Integer firstEndState = firstNFAGraph.getEndState();

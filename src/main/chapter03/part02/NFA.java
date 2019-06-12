@@ -78,17 +78,18 @@ public class NFA {
             0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x5B, 0x5C, 0x5D, 0x5E, 0x5F,
             0x60, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F,
             0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7A, 0x7B, 0x7C, 0x7D, 0x7E, 0x7F};
+    
+    public Boolean match(char[] sourceChar, char[] regularExpression) {
+        NFAGraph graph = getNFAGraph(regularExpression);
 
-    public static class Scanner {
-        
+        return false;
     }
     
-    public static class Parser {
-        
-    }
-    
-    public static class OpreationTree {
-        
+    private NFAGraph getNFAGraph(char[] regularExpression) {
+        NFAScanner nfaScanner = new NFAScanner(regularExpression);
+        NFAParser nfaParser = new NFAParser(nfaScanner);
+        NFABinaryTree nfaBinaryTree = nfaParser.parse();
+        return nfaBinaryTree.getNFAGraph(nfaBinaryTree.rootNode);
     }
 
 }
