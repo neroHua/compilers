@@ -67,15 +67,16 @@ public class NFAOperationUnion implements NFAOperation {
     }
 
     private List<Integer> convert(List<Integer> toBeConvertStateList, Integer increaNumber) {
+        List<Integer> convertedList = new ArrayList<Integer>();
         for (int i = 0; i < toBeConvertStateList.size(); i++) {
             if (START_STATE == toBeConvertStateList.get(i)) {
-                continue;
+                convertedList.add(i, toBeConvertStateList.get(i));
             } else {
-                toBeConvertStateList.set(i, toBeConvertStateList.get(i) + increaNumber);
+                convertedList.add(i, toBeConvertStateList.get(i) + increaNumber);
             }
         }
 
-        return toBeConvertStateList;
+        return convertedList;
     }
    
     @Override
