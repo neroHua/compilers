@@ -1,5 +1,7 @@
 package main.chapter03.part02;
 
+import java.util.List;
+
 /**
  * 
  * 从一个正则表达式中,构造一个NFAGraph
@@ -81,15 +83,71 @@ public class NFA {
     
     public Boolean match(char[] sourceChar, char[] regularExpression) {
         NFAGraph graph = getNFAGraph(regularExpression);
-
-        return false;
+        return subMatch(sourceChar, 0, 0, graph);
     }
     
+    private Boolean subMatch(char[] sourceChar, int currentIndex, int currentState, NFAGraph nfaGraph) {
+        List<Integer> nextStateByChar = sourceChar.length == currentIndex ? null : nfaGraph.getNextState(currentState, sourceChar[currentIndex]);
+        List<Integer> nextStateByE = nfaGraph.getNextStateByE(currentState);
+        // 结束条件1
+        // currentIndex == sourceChar.length时，则他的上一步有可能来是沿着字符courceChar[sourceChar.length - 1] 走的
+        // 只需要查看沿着E走，是否包含end状态,不包含则接着往下走
+        if (currentIndex == sourceChar.length) {
+            if (null != nextStateByE && nextStateByE.contains(nfaGraph.getEndState())) {
+                return true;
+            }
+        }
+        // 结束条件2
+        // currentIndex == sourceChar.length - 1时，
+        // 查看沿着sourceChar[sourceChar.length - 1]是否包含end状态,不包含则接着往下走
+        if (sourceChar.length - 1 == currentIndex) {
+            if (null != nextStateByChar && nextStateByChar.contains(nfaGraph.getEndState())) {
+                return true;
+            }
+        }
+
+        // 情况1：沿着当前字符走
+        if (null != nextStateByChar) {
+            return subMatchNextByChar(sourceChar, currentIndex, nfaGraph, nextStateByChar);
+        }
+        
+        // 情况2：沿着E走
+        if (null != nextStateByE) {
+            return subMatchNextByE(sourceChar, currentIndex, nfaGraph, nextStateByE);
+        }
+
+        // 情况3：没有路可以走
+        return false;
+    }
+
     private NFAGraph getNFAGraph(char[] regularExpression) {
         NFAScanner nfaScanner = new NFAScanner(regularExpression);
         NFAParser nfaParser = new NFAParser(nfaScanner);
         NFABinaryTree nfaBinaryTree = nfaParser.parse();
         return nfaBinaryTree.getNFAGraph(nfaBinaryTree.rootNode);
+    }
+
+    private boolean subMatchNextByChar(char[] sourceChar, int currentIndex, NFAGraph nfaGraph,
+            List<Integer> nextStateByChar) {
+        boolean result = false;
+        for (int i : nextStateByChar) {
+            result |= subMatch(sourceChar, currentIndex + 1, i, nfaGraph);
+            if (result) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean subMatchNextByE(char[] sourceChar, int currentIndex, NFAGraph nfaGraph, List<Integer> nextStateByE) {
+        boolean result = false;
+        for (int i : nextStateByE) {
+            result |= subMatch(sourceChar, currentIndex, i, nfaGraph);
+            if (result) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

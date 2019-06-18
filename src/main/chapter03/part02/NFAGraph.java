@@ -32,8 +32,12 @@ public class NFAGraph {
         return graph;
     }
 
-    public List<Integer> getNextStatus(Integer currentStatus, Character nextChar) {
-        return graph[currentStatus][nextChar];
+    public List<Integer> getNextState(Integer currentState, Character nextChar) {
+        return graph[currentState][nextChar];
+    }
+
+    public List<Integer> getNextStateByE(Integer currentState) {
+        return graph[currentState][128];
     }
 
 }
